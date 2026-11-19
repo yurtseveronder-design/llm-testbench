@@ -45,9 +45,14 @@ Checks: `contains_all`, `contains_any`, `must_not_contain`, `regex`, `not_regex`
 - Temperature is fixed to 0 for HTTP targets, but providers can still vary. Use `--repeats` to see it.
 - No parallelism, no cost tracking, no LLM-as-judge. Small on purpose.
 
-## Used with
+## Used with: a real cross-check
 
-[sentinel-support-assistant](https://github.com/yurtseveronder-design/sentinel-support-assistant) has its own runner; its question file can be converted to this format to test the same app through `command:`.
+`examples/convert_ssa.py` turns the 28 questions of [sentinel-support-assistant](https://github.com/yurtseveronder-design/sentinel-support-assistant) into cases, and `examples/ssa_target.py` wraps that app as a target. Running them through this tool gave the same scores as the app's own runner: **17/28** with no guard and **23/28** with Sentinel's rules (simulated gullible model, 2 repeats, no flaky cases). Two independent runners agreeing is the only validation here; it is not a benchmark of any real LLM.
+
+```bash
+export SSA_ROOT=/path/to/sentinel-support-assistant SSA_GUARD=local SSA_MODEL=gullible
+PYTHONPATH=src:.:/path/to/ai-sentinel/src python -m llm_testbench.cli run examples/ssa_cases.jsonl --target python:examples.ssa_target:answer --allow-failures
+```
 
 ## AI assistance
 
