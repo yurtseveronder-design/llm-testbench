@@ -12,5 +12,5 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m unittest discover -s tests -v
-      - name: Example run (one case is expected to fail: the toy target is hijackable on purpose)
+      - name: "Example run (one case is expected to fail, the toy target is hijackable on purpose)"
         run: PYTHONPATH=src:. python -m llm_testbench.cli run examples/cases.jsonl --target python:examples.toy:answer --repeats 2 --allow-failures --out result.json
