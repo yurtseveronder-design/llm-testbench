@@ -1,0 +1,16 @@
+[project]
+name = "llm-testbench"
+version = "0.1.0"
+description = "A small, honest test harness for LLM apps: JSONL cases, deterministic checks, repeat runs, regression compare."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+llm-testbench = "llm_testbench.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
